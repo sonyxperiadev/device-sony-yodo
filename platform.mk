@@ -337,6 +337,35 @@ PRODUCT_PACKAGES += \
 
 # Platform SSC Sensors
 PRODUCT_PACKAGES += \
+    kailua_power_0.json \
+    kailua_ak991x_0.json \
+    kailua_sht4x_0.json \
+    kailua_lsm6dsv_0.json \
+    kailua_qrd_tmd2755_0.json \
+    kailua_lsm6dsv_1.json \
+    kailua_tmd2755_0.json \
+    kailua_dynamic_sensors_template.json \
+    kailua_irq.json \
+    kailua_hdk_lsm6dsv_0.json \
+    kailua_qrd_ak991x_0.json \
+    kailua_bu52053nvx_0.json \
+    kailua_hhg_ak991x_0.json \
+    kailua_hdk_ak991x_0.json \
+    kailua_hdk_lsm6dsv_1.json \
+    kailua_vertigo_ak991x_0.json \
+    kailua_qsh_ble_0.json \
+    kailua_mtp_lsm6dsv_1.json \
+    kailua_dynamic_sensors.json \
+    kailua_vertigo_lsm6dsv_1.json \
+    kailua_mtp_ak991x_0.json \
+    kailua_mtp_lsm6dsv_0.json \
+    kailua_fcal_ak991x_0.json \
+    kailua_sx932x_0.json \
+    kailua_vertigo_lsm6dsv_0.json \
+    kailua_hhg_lsm6dsv_0.json \
+    kailua_default_sensors.json \
+    kailua_lps22df_0.json \
+    kailua_qrd_lsm6dsv_0.json
 
 # Other yodo-specific sensors
 PRODUCT_PACKAGES += \
