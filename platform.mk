@@ -114,6 +114,7 @@ PRODUCT_PACKAGES += \
 AB_OTA_PARTITIONS += \
     boot \
     dtbo \
+    init_boot \
     product \
     recovery \
     system \
