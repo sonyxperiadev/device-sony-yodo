@@ -385,11 +385,11 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-service-qti
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.vendor.qcom.bluetooth.soc=hastings
+    persist.vendor.qcom.bluetooth.soc=hamilton
 
 # Legacy BT property (will be removed in S)
 PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.qcom.bluetooth.soc=hastings
+    vendor.qcom.bluetooth.soc=hamilton
 
 # Audio - Android System
 PRODUCT_PROPERTY_OVERRIDES += \
