@@ -263,7 +263,7 @@ PRODUCT_PACKAGES += \
 
 # Sensors init
 PRODUCT_PACKAGES += \
-    sdsp-sensorspdr.rc
+    adsp-sensorspdr.rc
 
 # SPU
 PRODUCT_PACKAGES += \
