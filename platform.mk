@@ -221,6 +221,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     tad.rc \
     init.yodo \
+    init.yodo.pwr \
     ueventd
 
 # Audio init
