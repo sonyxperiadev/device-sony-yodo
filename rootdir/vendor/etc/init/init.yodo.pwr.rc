@@ -1,0 +1,171 @@
+# Copyright 2025 The Android Open-Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+on charger
+    # Bring CPUs online
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
+
+    # Configure governor settings for Silver cluster
+    write /sys/devices/system/cpu/cpufreq/policy0/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq 307200
+
+    # Configure governor settings for Gold cluster
+    write /sys/devices/system/cpu/cpufreq/policy3/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpufreq/policy3/scaling_min_freq 499200
+
+    # Configure governor settings for Gold+ cluster
+    write /sys/devices/system/cpu/cpufreq/policy7/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpufreq/policy7/scaling_min_freq 595200
+
+    # Bring CPUs offline
+    write /sys/devices/system/cpu/cpu1/online 0
+    write /sys/devices/system/cpu/cpu2/online 0
+    write /sys/devices/system/cpu/cpu3/online 0
+    write /sys/devices/system/cpu/cpu4/online 0
+    write /sys/devices/system/cpu/cpu5/online 0
+    write /sys/devices/system/cpu/cpu6/online 0
+    write /sys/devices/system/cpu/cpu7/online 0
+
+on property:sys.boot_completed=1
+    # Setting b.L scheduler parameters
+    write /proc/sys/walt/sched_upmigrate "95 95"
+    write /proc/sys/walt/sched_downmigrate "85 85"
+    write /proc/sys/walt/sched_group_upmigrate 100
+    write /proc/sys/walt/sched_group_downmigrate 85
+    write /proc/sys/walt/sched_walt_rotate_big_tasks 1
+    write /proc/sys/walt/sched_coloc_downmigrate_ns 400000000
+    write /proc/sys/walt/sched_coloc_busy_hyst_cpu_ns "16000000 16000000 16000000 16000000 16000000 16000000 16000000 5000000"
+    write /proc/sys/walt/sched_coloc_busy_hysteresis_enable_cpus 248
+    write /proc/sys/walt/sched_coloc_busy_hyst_cpu_busy_pct "10 10 10 10 10 10 10 95"
+    write /proc/sys/walt/sched_util_busy_hyst_cpu_ns "8500000 8500000 8500000 8500000 8500000 8500000 8500000 2000000"
+    write /proc/sys/walt/sched_util_busy_hysteresis_enable_cpus 255
+    write /proc/sys/walt/sched_util_busy_hyst_cpu_util "1 1 1 1 1 1 1 15"
+    write /proc/sys/walt/walt_low_latency_task_threshold 325
+    write /proc/sys/walt/sched_cluster_util_thres_pct 40
+    write /proc/sys/walt/sched_idle_enough 30
+    write /proc/sys/walt/sched_ed_boost 10
+
+    # CPUSET params
+    write /dev/cpuset/background/cpus "0-2"
+    write /dev/cpuset/system-background/cpus "0-2"
+
+    # Reset the RT boost, which is 1024 (max) by default.
+    write /proc/sys/kernel/sched_util_clamp_min_rt_default 0
+
+    # configure governor settings for silver cluster
+    write /sys/devices/system/cpu/cpufreq/policy0/scaling_governor "walt"
+    write /sys/devices/system/cpu/cpufreq/policy0/walt/up_rate_limit_us 0
+    write /sys/devices/system/cpu/cpufreq/policy0/walt/down_rate_limit_us 0
+    write /sys/devices/system/cpu/cpufreq/policy0/walt/hispeed_freq 1267200
+    write /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq 556800
+    write /sys/devices/system/cpu/cpufreq/policy0/walt/pl 1
+
+    # configure governor settings for gold cluster
+    write /sys/devices/system/cpu/cpufreq/policy3/scaling_governor "walt"
+    write /sys/devices/system/cpu/cpufreq/policy3/walt/up_rate_limit_us 0
+    write /sys/devices/system/cpu/cpufreq/policy3/walt/down_rate_limit_us 0
+    write /sys/devices/system/cpu/cpufreq/policy3/walt/hispeed_freq 1555200
+    write /sys/devices/system/cpu/cpufreq/policy3/scaling_min_freq 537600
+    write /sys/devices/system/cpu/cpufreq/policy3/walt/pl 1
+
+    # configure governor settings for gold+ cluster
+    write /sys/devices/system/cpu/cpufreq/policy7/scaling_governor "walt"
+    write /sys/devices/system/cpu/cpufreq/policy7/walt/up_rate_limit_us 0
+    write /sys/devices/system/cpu/cpufreq/policy7/walt/down_rate_limit_us 0
+    write /sys/devices/system/cpu/cpufreq/policy7/walt/hispeed_freq 1728000
+    write /sys/devices/system/cpu/cpufreq/policy7/scaling_min_freq 748800
+    write /sys/devices/system/cpu/cpufreq/policy7/walt/pl 1
+
+    # configure input boost settings
+    write /proc/sys/walt/input_boost/input_boost_freq "1228800 0 0 0 0 0 0 0"
+    write /proc/sys/walt/input_boost/input_boost_ms 100
+
+    # Turn off scheduler boost
+    write /proc/sys/walt/sched_boost 0
+
+    # Controls how many more tasks should be eligible to run on gold CPUs.
+    # Setting to 1 by default which means there should be at least
+    # 4 tasks eligible to run on gold cluster to trigger assitance from gold+.
+    write /sys/devices/system/cpu/cpu7/core_ctl/nr_prev_assist_thresh 1
+
+    # Disable Core control on silver
+    write /sys/devices/system/cpu/cpu0/core_ctl/enable 0
+
+    # Core control parameters for gold
+    write /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 2
+    write /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres 60
+    write /sys/devices/system/cpu/cpu4/core_ctl/busy_down_thres 30
+    write /sys/devices/system/cpu/cpu4/core_ctl/offline_delay_ms 100
+    write /sys/devices/system/cpu/cpu4/core_ctl/task_thres 3
+
+    # Core control parameters for gold+
+    write /sys/devices/system/cpu/cpu7/core_ctl/min_cpus 0
+    write /sys/devices/system/cpu/cpu7/core_ctl/busy_up_thres 60
+    write /sys/devices/system/cpu/cpu7/core_ctl/busy_down_thres 30
+    write /sys/devices/system/cpu/cpu7/core_ctl/offline_delay_ms 100
+    write /sys/devices/system/cpu/cpu7/core_ctl/task_thres 1
+
+    # Set the system's memory sleep state to "s2idle" (Suspend-to-Idle)
+    write /sys/power/mem_sleep "s2idle"
+
+    # Configure bus-dcvs
+    # LLCC
+    # hw_min_freq > boost_freq
+    write /sys/devices/system/cpu/bus_dcvs/LLCC/boost_freq 300000
+    write /sys/devices/system/cpu/bus_dcvs/LLCC/240b6400.qcom,bwmon-llcc/mbps_zones "4577 7110 9155 12298 14236 15258"
+    write /sys/devices/system/cpu/bus_dcvs/LLCC/240b6400.qcom,bwmon-llcc/sample_ms 4
+    write /sys/devices/system/cpu/bus_dcvs/LLCC/240b6400.qcom,bwmon-llcc/io_percent 80
+    write /sys/devices/system/cpu/bus_dcvs/LLCC/240b6400.qcom,bwmon-llcc/hist_memory 20
+    write /sys/devices/system/cpu/bus_dcvs/LLCC/240b6400.qcom,bwmon-llcc/hyst_length 5
+    write /sys/devices/system/cpu/bus_dcvs/LLCC/240b6400.qcom,bwmon-llcc/idle_length 1
+    write /sys/devices/system/cpu/bus_dcvs/LLCC/240b6400.qcom,bwmon-llcc/down_thres 30
+    write /sys/devices/system/cpu/bus_dcvs/LLCC/240b6400.qcom,bwmon-llcc/guard_band_mbps 0
+    write /sys/devices/system/cpu/bus_dcvs/LLCC/240b6400.qcom,bwmon-llcc/up_scale 250
+    write /sys/devices/system/cpu/bus_dcvs/LLCC/240b6400.qcom,bwmon-llcc/idle_mbps 1600
+    write /sys/devices/system/cpu/bus_dcvs/LLCC/240b6400.qcom,bwmon-llcc/max_freq 806000
+    write /sys/devices/system/cpu/bus_dcvs/LLCC/240b6400.qcom,bwmon-llcc/window_ms 40
+
+    # DDR
+    # hw_min_freq > boost_freq
+    write /sys/devices/system/cpu/bus_dcvs/DDR/boost_freq 547000
+    write /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/mbps_zones "2086 5931 6515 7980 12191 16259"
+    write /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/sample_ms 4
+    write /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/io_percent 80
+    write /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hist_memory 20
+    write /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hyst_length 5
+    write /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/idle_length 1
+    write /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/down_thres 30
+    write /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/guard_band_mbps 0
+    write /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/up_scale 250
+    write /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/idle_mbps 1600
+    write /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/max_freq 2736000
+    write /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/window_ms 40
+    write /sys/devices/system/cpu/bus_dcvs/DDR/soc:qcom,memlat:ddr:prime-latfloor/ipm_ceil 25000
+    write /sys/devices/system/cpu/bus_dcvs/DDR/soc:qcom,memlat:ddr:prime/freq_scale_pct 25
+    write /sys/devices/system/cpu/bus_dcvs/DDR/soc:qcom,memlat:ddr:prime/freq_scale_floor_mhz 1500
+    write /sys/devices/system/cpu/bus_dcvs/DDR/soc:qcom,memlat:ddr:prime/freq_scale_ceil_mhz 2726
+
+    # DDRQOS
+    write /sys/devices/system/cpu/bus_dcvs/DDRQOS/soc:qcom,memlat:ddrqos:gold/ipm_ceil 50
+    write /sys/devices/system/cpu/bus_dcvs/DDRQOS/soc:qcom,memlat:ddrqos:prime-latfloor/ipm_ceil 25000
+
+    # L3
+    write /sys/devices/system/cpu/bus_dcvs/L3/soc:qcom,memlat:l3:gold/ipm_ceil 4000
+    write /sys/devices/system/cpu/bus_dcvs/L3/soc:qcom,memlat:l3:prime/ipm_ceil 20000
