@@ -235,6 +235,7 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
+    vendor.qti.camera.provider-service_64.rc \
     model3.dat
 
 # GFX
