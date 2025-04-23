@@ -92,6 +92,9 @@ TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
 TARGET_USES_DRM_PP := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 2
 
+# CAMERA
+TARGET_USES_QTI_CAMERA := true
+
 # TEMP: Disable Fingerprint HAL until support for this platform
 # lands in HAL. Fixes incredible CPU usage:
 # https://github.com/sonyxperiadev/bug_tracker/issues/860
@@ -363,9 +366,6 @@ PRODUCT_PACKAGES += \
 
 # Platform-specific sensor overlays
 PRODUCT_COPY_FILES += \
-
-# CAMERA
-TARGET_USES_QTI_CAMERA := true
 
 # Look for camera.qcom.so instead of camera.$(BOARD_TARGET_PLATFORM).so
 PRODUCT_PROPERTY_OVERRIDES += \
