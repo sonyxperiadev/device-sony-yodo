@@ -183,10 +183,6 @@ PRODUCT_PACKAGES += \
     init.yodo.pwr \
     ueventd
 
-# Audio init
-PRODUCT_PACKAGES += \
-    audiopd.rc
-
 # Audio
 PRODUCT_PACKAGES += \
     sound_trigger.primary.sm8550 \
