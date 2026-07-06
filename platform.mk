@@ -26,10 +26,6 @@ TARGET_BOARD_PLATFORM := $(KALAMA)
 
 SONY_ROOT := $(PLATFORM_COMMON_PATH)/rootdir
 
-# Overlay
-DEVICE_PACKAGE_OVERLAYS += \
-    $(PLATFORM_COMMON_PATH)/overlay
-
 # Build init_boot image
 PRODUCT_BUILD_INIT_BOOT_IMAGE := true
 
@@ -161,6 +157,11 @@ PRODUCT_COPY_FILES += \
 # CAMX config
 PRODUCT_COPY_FILES += \
     $(SONY_ROOT)/vendor/etc/camera/camxoverridesettings.txt:$(TARGET_COPY_OUT_VENDOR)/etc/camera/camxoverridesettings.txt
+
+# Platform Runtime Resource Overlays
+PRODUCT_PACKAGES += \
+    FrameworkOverlayYodo \
+    SettingsOverlayYodo
 
 # Platform specific init
 PRODUCT_PACKAGES += \
