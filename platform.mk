@@ -176,13 +176,6 @@ PRODUCT_PACKAGES += \
     vendor.qti.camera.provider-service_64.rc \
     model3.dat
 
-# GFX
-PRODUCT_PACKAGES += \
-    copybit.sm8550 \
-    gralloc.sm8550 \
-    hwcomposer.sm8550 \
-    memtrack.default
-
 # KeyMint passthrough service init file
 # (executable is on odm)
 PRODUCT_PACKAGES += \
@@ -202,10 +195,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 DEVICE_MANIFEST_FILE += \
     $(PLATFORM_COMMON_PATH)/vintf/android.hardware.security.keymint-service-qti.xml \
     $(PLATFORM_COMMON_PATH)/vintf/vendor.qti.hardware.qseecom_v1.0.xml
-
-# GPS
-PRODUCT_PACKAGES += \
-    gps.sm8550
 
 # Sensors init
 PRODUCT_PACKAGES += \
