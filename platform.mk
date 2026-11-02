@@ -115,7 +115,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(SONY_ROOT)/vendor/etc/media_codecs_kalama.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_kalama.xml \
     $(SONY_ROOT)/vendor/etc/media_codecs_performance_kalama.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance_kalama.xml \
-    $(SONY_ROOT)/vendor/etc/media_profiles_kalama.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_kalama.xml
+    $(SONY_ROOT)/vendor/etc/media_profiles_kalama.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_kalama.xml \
+    $(SONY_ROOT)/vendor/etc/media_kalama/video_system_specs.json:$(TARGET_COPY_OUT_VENDOR)/etc/media_kalama/video_system_specs.json
 
 # Qualcom WiFi Overlay
 PRODUCT_COPY_FILES += \
