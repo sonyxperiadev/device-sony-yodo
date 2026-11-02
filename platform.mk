@@ -101,11 +101,14 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_COPY_FILES += \
-    $(SONY_ROOT)/vendor/etc/audio_module_config_primary.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_module_config_primary.xml \
     $(SONY_ROOT)/vendor/etc/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
     $(SONY_ROOT)/vendor/etc/card-defs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/card-defs.xml \
-    $(SONY_ROOT)/vendor/etc/resourcemanager_kalama_qrd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/resourcemanager_kalama_qrd.xml \
-    $(SONY_ROOT)/vendor/etc/usecaseKvManager.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usecaseKvManager.xml
+    $(SONY_ROOT)/vendor/etc/usecaseKvManager.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usecaseKvManager.xml \
+    $(SONY_ROOT)/vendor/etc/audio/sku_kalama/audio_effects_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_kalama/audio_effects_config.xml \
+    $(SONY_ROOT)/vendor/etc/audio/sku_kalama/audio_module_config_primary.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_kalama/audio_module_config_primary.xml \
+    $(SONY_ROOT)/vendor/etc/audio/sku_kalama/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_kalama/audio_policy_configuration.xml \
+    $(SONY_ROOT)/vendor/etc/audio/sku_kalama/resourcemanager_kalama_qrd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_kalama/resourcemanager_kalama_qrd.xml \
+    $(SONY_ROOT)/vendor/etc/audio/sku_kalama/vendor_audio_interfaces.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_kalama/vendor_audio_interfaces.xml
 
 # Display
 PRODUCT_COPY_FILES += \
